@@ -1,0 +1,78 @@
+services:
+  as:
+    container_name: poc-as
+    build:
+      context: ../   # raiz do mono repo
+      dockerfile: poc/Dockerfile
+    working_dir: /app/poc/as
+    command: go run main.go
+    ports:
+      - "8080:8080"
+    networks:
+      - poc-net
+
+  server1:
+    container_name: poc-server1
+    build:
+      context: ../
+      dockerfile: poc/Dockerfile
+    working_dir: /app/poc/server1
+    command: go run main.go
+    depends_on:
+      - as
+    ports:
+      - "8081:8081"
+    networks:
+      - poc-net
+
+  agent:
+    container_name: poc-agent
+    build:
+      context: ../
+      dockerfile: poc/Dockerfile
+    working_dir: /app/poc/agent
+    command: go run main.go
+    depends_on:
+      - as
+    ports:
+      - "8082:8082"
+    networks:
+      - poc-net
+
+  server2:
+    container_name: poc-server2
+    build:
+      context: ../
+      dockerfile: poc/Dockerfile
+    working_dir: /app/poc/server2
+    command: go run main.go
+    depends_on:
+      - as
+    ports:
+      - "8083:8083"
+    networks:
+      - poc-net
+
+  mcp-host:
+    container_name: poc-mcp-host
+    build:
+      context: ../
+      dockerfile: poc/Dockerfile
+    working_dir: /app/poc/mcp-host
+    command: go run main.go
+    depends_on:
+      - as
+      - server1
+      - agent
+      - server2
+    environment:
+      POC_AS_URL: http://poc-as:8080/issueToken
+      POC_SERVER1_URL: http://poc-server1:8081
+      POC_AGENT_CARD_URL: http://poc-agent:8082
+      POC_SERVER2_URL: http://poc-server2:8083
+    networks:
+      - poc-net
+
+networks:
+  poc-net:
+    driver: bridge

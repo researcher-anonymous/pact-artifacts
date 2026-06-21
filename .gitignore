@@ -1,0 +1,39 @@
+# Benchmark outputs
+old-results/
+bench-results-*/
+benchmark/old-results/
+benchmark/bench-results-*/
+benchmark/local-results-*/
+benchmark/tmp-results-*/
+**/old-results/
+**/bench-results-*/
+
+# Reference CSVs for the paper are intentionally tracked.
+!benchmark/paper-results/
+!benchmark/paper-results/*.csv
+
+# Local build/test outputs
+*.test
+*.out
+*.prof
+coverage.out
+coverage.txt
+coverage.html
+dist/
+build/
+tmp/
+
+# Local credentials and environment
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.crt
+
+# Editor and OS files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*~

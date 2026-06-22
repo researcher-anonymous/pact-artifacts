@@ -1,7 +1,7 @@
 # PACT Artifact
 
 This repository contains the proof-of-concept implementation and benchmark
-artifacts for PACT, Prefix-Authenticated Chain Tokens. PACT is evaluated here
+artifacts for PACT, Privacy-preserving Authorization fo Cooperative agenTs. PACT is evaluated here
 as a token construction for issuer-rooted authorization-state continuity,
 offline extension, local validation, selective presentation, and
 bounded-staleness revocation.
